@@ -8,10 +8,11 @@ export default function App() {
   const [local, setLocal] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
+  const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
   const fetchData = async () => {
     try {
-      await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${local}&appid=5ded3f796b16afe0854746d4c62c93c8`);
+      await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${local}&appid=${apiKey}`);
 
       navigate(`/local/${local}`);
     }

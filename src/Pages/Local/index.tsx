@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CelsiusFormat } from '../../utils/Converter';
-import { Converterkm } from '../../utils/Converterkm';
 import axios from 'axios';
 import { Divider } from '../../Components/Divider';
+import { Translate } from '../../utils/Translate';
+import { AlterImage } from '../../utils/AlterImage';
+import { Spinner } from 'react-bootstrap';
 
 import './styles.css';
 
@@ -28,45 +30,38 @@ export default function Local() {
     useEffect(() => {
         fetchData();
     }, [])
-
     return (
         <div>
             {isFetching
-                ? <p>Carregando...</p>
+                ? (
+                    <div
+                        style={{
+                            height: '100vh', backgroundImage: 'url("../../../public/backdrop.png")'
+                        }}
+                        className='d-flex align-items-center justify-content-center'>
+
+                        <Spinner animation='border' role='status' variant='light' />
+                    </div>
+                )
                 : (
-                    // <div>
-                    //     <p>Temperatura: {CelsiusFormat(data?.main?.temp)}</p>
-                    //     <p>Sensação térmica: {CelsiusFormat(data?.main?.feels_like)}</p>
-                    //     <p>Temperatura minima: {CelsiusFormat(data?.main?.temp_min)}</p>
-                    //     <p>Temperatura máxima: {CelsiusFormat(data?.main?.temp_max)}</p>
-                    //     <p>Humidade: {data?.main?.humidity}</p>
-                    //     <p>Velocidade do vento: {data?.wind?.speed}</p>
-                    //     <p>Quantidade de nuvens: {data?.clouds?.all}</p>
-                    //     {data?.weather?.map((weather: any) => {
-                    //         return (
-                    //             <div key={weather?.id}>
-                    //                 <p>Weather: {weather?.main}</p>
-                    //                 <p>Weather Description: {weather?.description}</p>
-                    //                 <img src={`https://openweathermap.org/img/wn/${weather?.icon}@2x.png`} alt="Imagem do tempo" />
-                    //             </div>
-                    //         )
-                    //     })}
-                    // </div>
-                    <div id='body' className='d-flex justify-content-center align-items-center'>
+                    <div id='body' className='d-flex justify-content-center align-items-center' style={{
+                        backgroundImage: `url(${AlterImage(data?.weather[0]?.main)})`
+                    }}>
                         <div className='d-flex justify-content-center align-items-center flex-column p-4' id='card'>
                             <div>
+                                <h3 className='text-center'>{data?.name} - {data?.sys?.country}</h3>
                                 <h1 className='temperature'>{CelsiusFormat(data?.main?.temp)}</h1>
                                 {data?.weather?.map((weather: any, index: number) => {
                                     return (
                                         <div className='d-flex justify-content-center align-items-center' key={index}>
                                             <img id='weather-img' src={`https://openweathermap.org/img/wn/${weather?.icon}@2x.png`} alt="Weather" />
-                                            <p className='m-0'>{weather?.main}</p>
+                                            <p className='m-0'>{Translate(weather?.description)}</p>
                                         </div>
                                     )
                                 })}
                                 <div className='d-flex justify-content-between'>
-                                    <p className='temperatures'>Temp min {CelsiusFormat(data?.main?.temp_min)}</p>
-                                    <p className='temperatures'>Temp max {CelsiusFormat(data?.main?.temp_max)}</p>
+                                    <p className='temperatures text-primary'>Temp min {CelsiusFormat(data?.main?.temp_min)}</p>
+                                    <p className='temperatures text-danger'>Temp max {CelsiusFormat(data?.main?.temp_max)}</p>
                                 </div>
                             </div>
 
@@ -84,7 +79,7 @@ export default function Local() {
                                 <Divider />
                                 <div className='d-flex justify-content-between'>
                                     <p className='m-0'>Velocidade do vento</p>
-                                    <p className='m-0'>{Converterkm(data?.wind?.speed)} Km/h</p>
+                                    <p className='m-0'>{data?.wind?.speed} m/s</p>
                                 </div>
                             </div>
                         </div>

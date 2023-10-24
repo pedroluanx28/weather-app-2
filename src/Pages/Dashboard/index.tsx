@@ -22,7 +22,7 @@ export default function App() {
     }
   }
 
-  function enter(key: any) {
+  function clickEnter(key: string) {
     if (key === "Enter") {
       fetchData();
     }
@@ -34,15 +34,15 @@ export default function App() {
       <div className='d-flex justify-content-center align-items-center flex-column p-4' id='card'>
         <img src="logo.png" alt="Logo Weather App" id='logo-image' className='mb-3' />
 
-        <label className='fw-bold fs-4 mb-2' id='text-input'>Qual CEP você quer ver agora?</label>
+        <label className='fw-bold fs-4 mb-2' id='text-input'>Qual local você quer ver agora?</label>
         <input className={
           error
             ? 'form-control mb-1 border-danger text-danger'
             : 'form-control mb-1'
-        } id='input-weather' type="text" placeholder='Digite um CEP para ver o clima' onChange={(e) => {
+        } id='input-weather' type="text" placeholder='Digite um local para ver o clima' onChange={(e) => {
           setLocal(e.target.value);
           setError(false);
-        }} onKeyDown={(e) => enter(e)} />
+        }} onKeyDown={(e) => clickEnter(e.key)} />
 
         {error && <span className='text-danger me-auto'>O nome do local é inválido!</span>}
 

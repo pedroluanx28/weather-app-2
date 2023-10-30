@@ -3,21 +3,21 @@ type weatherProps =
 
     export function AlterImage(weather: weatherProps) {
         const images = {
-            Thunderstorm: '../../../public/backdrop.png',
-            Drizzle: '../../../public/backdrop.png',
-            Rain: '../../../public/backdrop.png',
-            Snow: '../../../public/backdrop.png',
-            Mist: '../../../public/backdrop.png',
-            Smoke: '../../../public/backdrop.png',
-            Haze: '../../../public/backdrop.png',
-            Dust: '../../../public/backdrop.png',
-            Fog: '../../../public/backdrop.png',
-            Sand: '../../../public/backdrop.png',
-            Ash: '../../../public/backdrop.png',
-            Squall: '../../../public/backdrop.png',
-            Tornado: '../../../public/backdrop.png',
-            Clear: '../../../public/backdrop.png',
-            Clouds: '../../../public/backdrop.png',
+            Thunderstorm: '../../../public/thunderstorm.jpg',
+            Drizzle: '../../../public/rain.jpg',
+            Rain: '../../../public/rain.jpg',
+            Snow: '../../../public/snow.jpg',
+            Mist: '../../../public/mist.jpg',
+            Smoke: '../../../public/mist.jpg',
+            Haze: '../../../public/mist.jpg',
+            Dust: '../../../public/sand.jpg',
+            Fog: '../../../public/mist.jpg',
+            Sand: '../../../public/sand.jpg',
+            Ash: '../../../public/ash.jpg',
+            Squall: '../../../public/squall.jpg',
+            Tornado: '../../../public/tornado.jpg',
+            Clear: '../../../public/clear.jpg',
+            Clouds: '../../../public/clouds.jpg',
         }
 
         return images[weather] ?? null;
